@@ -16,7 +16,8 @@ Desafio **Battle Knights × AI-DLC**: equipes usam o [AI-DLC da AWS](https://git
 | `workstation/scripts/` | `post-start.sh` (instala Copilot CLI e AI-DLC), `verify-workstation.sh`, `scan-secrets.sh` |
 | `workstation/k8s/` | Exemplo do Secret com o token do Copilot |
 | `workstation/versions.env` | Versões fixadas (AI-DLC v2.10.0, Copilot CLI 1.0.91) |
-| `devfile.yaml` | Definição do workspace do Dev Spaces (adicionado separadamente pelo time) |
+| `devfile.yaml` | Workspace do Dev Spaces (usa a imagem `rodrigotsuru/aidlc:1.0.0`) |
+| `Dockerfile` | Imagem do workspace (Claude Code, Copilot CLI e AI-DLC v2.10.0 sobre a Universal Developer Image) |
 
 ## Sobre o jogo
 
