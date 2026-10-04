@@ -91,3 +91,7 @@ Deve terminar com `GAME OVER!` e o estado final dos quatro cavaleiros. Rode de d
 ```bash
 bash workstation/tests/run.sh
 ```
+
+## Licença
+
+Este repositório usa a licença [MIT](LICENSE). Ela cobre apenas o conteúdo daqui (roteiro, regras, scripts). O jogo Battle Knights **não** está incluído e não é coberto por ela: o autor não declara licença, e o `scripts/setup-game.sh` só o baixa do repositório original.
