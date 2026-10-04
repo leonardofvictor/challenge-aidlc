@@ -13,7 +13,7 @@ Desafio **Battle Knights × AI-DLC**: equipes usam o [AI-DLC da AWS](https://git
 | `docs/desafio/roteiro.md` | Fases 0 a 4, votação no Kahoot, pontuação, rodada interna |
 | `aidlc/spaces/default/memory/` | Regras do método e a lista de eventos |
 | `scripts/setup-game.sh` | Baixa o jogo (versão fixada) para `game/` |
-| `workstation/scripts/` | `post-start.sh` (instala Copilot CLI e AI-DLC), `verify-workstation.sh`, `scan-secrets.sh` |
+| `workstation/scripts/` | `verify-workstation.sh`, `scan-secrets.sh` e `post-start.sh` (alternativa sem a imagem pronta: instala Copilot CLI e AI-DLC) |
 | `workstation/k8s/` | Exemplo do Secret com o token do Copilot |
 | `workstation/versions.env` | Versões fixadas (AI-DLC v2.10.0, Copilot CLI 1.0.91) |
 | `devfile.yaml` | Workspace do Dev Spaces (usa a imagem `rodrigotsuru/aidlc:1.0.0`) |
@@ -47,7 +47,12 @@ O Secret precisa existir **antes** de iniciar o workspace. No Sandbox, seu names
 
 1. Abra o Dev Spaces do Sandbox (pelo painel do Developer Sandbox) e escolha **Import from Git**.
 2. Informe `https://github.com/leonardofvictor/challenge-aidlc` (o repositório precisa ter o `devfile.yaml` na raiz).
-3. Aguarde **Running**. O `postStart` roda `workstation/scripts/post-start.sh`, que instala o Copilot CLI e o AI-DLC e configura o harness do Copilot. Se o token faltar, ele avisa sem interromper.
+3. Aguarde **Running**. A imagem já traz Copilot CLI, Claude Code e AI-DLC, por isso o devfile não tem `postStart`.
+4. No terminal, na raiz do projeto, configure o AI-DLC para o Copilot (uma vez por workspace):
+   ```bash
+   aidlc config --harness copilot --yes
+   ```
+   Isso cria `.github/skills/`, `AGENTS.md` e `.aidlc/`, que não precisam ser commitados.
 
 ### 4. Verificar o ambiente
 
@@ -55,7 +60,7 @@ O Secret precisa existir **antes** de iniciar o workspace. No Sandbox, seu names
 bash workstation/scripts/verify-workstation.sh
 ```
 
-Deve mostrar PASSOU para Copilot CLI, token, regras do AI-DLC, pasta `aidlc/` gravável e git. O token nunca é impresso.
+Deve mostrar PASSOU para Copilot CLI, token, AI-DLC configurado, pasta `aidlc/` gravável e git. O token nunca é impresso.
 
 ### 5. Baixar o jogo e conferir que roda
 
@@ -81,7 +86,7 @@ Deve terminar com `GAME OVER!` e o estado final dos quatro cavaleiros. Rode de d
 | Sintoma | O que fazer |
 | --- | --- |
 | `verify` falha em "token do GitHub" | Aplique o Secret no namespace correto e reinicie o workspace |
-| `verify` falha em "regras do AI-DLC" | Rode `bash workstation/scripts/post-start.sh` e leia os avisos (rede até o GitHub) |
+| `verify` falha em "AI-DLC não configurado" | Rode `aidlc config --harness copilot --yes` na raiz do workspace |
 | Copilot CLI não autentica | Token sem **Copilot Requests** ou conta sem licença |
 | `setup-game.sh` diz que `game/` já existe | Já foi baixado. Para recomeçar, apague `game/` (perde alterações) |
 | `python3: command not found` | A imagem do workspace não traz Python; avise o time (o devfile é do time de plataforma) |

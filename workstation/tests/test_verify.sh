@@ -40,9 +40,15 @@ else
 fi
 [ $rc -ne 0 ] && echo "$out" | grep -q 'FALHOU  pasta de artefatos' && ok "pasta nao gravavel falha" || bad "pasta nao gravavel deveria falhar (rc=$rc)"
 
+unset AIDLC_DIR_T  # a atribuicao do teste anterior vaza para o shell
 # Erro: regras do AI-DLC nao instaladas
 rm -f "$T/state/installed"
 out=$(run GH_TOKEN="$FAKE_TOKEN"); rc=$?
-[ $rc -ne 0 ] && echo "$out" | grep -q 'FALHOU  regras do AI-DLC' && ok "regras ausentes falham" || bad "regras ausentes deveriam falhar"
+[ $rc -ne 0 ] && echo "$out" | grep -q 'FALHOU  AI-DLC nao configurado' && ok "AI-DLC nao configurado falha" || bad "AI-DLC nao configurado deveria falhar"
+
+# Feliz sem marcador: skills do Copilot no workspace (fluxo da imagem pronta, sem post-start)
+mkdir -p "$T/.github/skills/aidlc"
+out=$(run GH_TOKEN="$FAKE_TOKEN"); rc=$?
+[ $rc -eq 0 ] && echo "$out" | grep -q 'AI-DLC configurado para o Copilot' && ok "skills no workspace bastam sem marcador" || bad "skills no workspace deveriam passar (rc=$rc)"
 
 [ $fails -eq 0 ]

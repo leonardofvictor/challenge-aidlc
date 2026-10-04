@@ -29,11 +29,14 @@ else
   fail "token do GitHub ausente: crie o Secret copilot-token e reinicie o workspace"
 fi
 
-# 3) Regras do AI-DLC instaladas (marcador gravado por post-start.sh)
+# 3) AI-DLC configurado para o Copilot: marcador do post-start.sh ou skills no workspace
+#    (com a imagem pronta nao ha post-start; o passo e `aidlc config --harness copilot --yes`)
 if [ -r "$AIDLC_STATE_DIR/installed" ] && [ -n "$(cat "$AIDLC_STATE_DIR/installed" 2>/dev/null)" ]; then
   pass "regras do AI-DLC instaladas (versao $(head -n 1 "$AIDLC_STATE_DIR/installed"))"
+elif [ -d "$WORKSPACE_DIR/.github/skills/aidlc" ]; then
+  pass "AI-DLC configurado para o Copilot (.github/skills/aidlc)"
 else
-  fail "regras do AI-DLC nao instaladas: rode workstation/scripts/post-start.sh"
+  fail "AI-DLC nao configurado para o Copilot: rode 'aidlc config --harness copilot --yes' na raiz do workspace"
 fi
 
 # 4) Pasta de artefatos gravavel

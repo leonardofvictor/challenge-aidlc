@@ -23,7 +23,7 @@ Fonte: [resumo para o organizador](../../Desafio%20Battle%20Knights%20×%20AI-DL
 
 - [x] Licença do jogo: o autor não declara licença, então o código **não é copiado** para este repositório; cada equipe o baixa com `scripts/setup-game.sh` (versão fixada). Para uso fora do workshop, peça licença ao autor
 - [x] Pausa entre as jogadas: `run.py` (versão ASCII) pausa 1 s por ação (`sleep(1)` em `process.py`); `MVP.py` não pausa e roda tudo de uma vez
-- [x] Versão do AI-DLC: v2.10.0, fixada em `workstation/versions.env` e instalada pelo `post-start.sh`
+- [x] Versão do AI-DLC: v2.10.0, instalada na imagem do workspace (`Dockerfile`, `ARG AIDLC_VERSION=2.10.0`)
 - [ ] Confirmar se o plano do Kahoot aceita 4 ou 5 respostas
 - [ ] Confirmar o nome do ritual: Mob Inception ou Mob Elaboration (nome usado pela AWS)
 - [x] Lista de eventos escrita como regra em `aidlc/spaces/default/memory/project.md` (seção `## Mandated`)
