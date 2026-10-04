@@ -60,10 +60,10 @@ Deve mostrar PASSOU para Copilot CLI, token, regras do AI-DLC, pasta `aidlc/` gr
 
 ```bash
 bash scripts/setup-game.sh
-python3 game/battle_knights/MVP.py
+cd game/battle_knights && python3 MVP.py
 ```
 
-Deve terminar com `GAME OVER!` e o estado final dos quatro cavaleiros. `run.py` (mesma pasta) mostra o jogo turno a turno, com pausa de 1 s por ação.
+Deve terminar com `GAME OVER!` e o estado final dos quatro cavaleiros. Rode de dentro de `game/battle_knights/`: o jogo lê `moves.txt` do diretório atual. `python3 run.py` (mesma pasta) mostra o jogo turno a turno, com pausa de 1 s por ação.
 
 ### 6. Rodar o desafio
 

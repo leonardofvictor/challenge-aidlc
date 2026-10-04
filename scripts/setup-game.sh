@@ -47,4 +47,4 @@ mkdir -p "$DEST" || fail "nao foi possivel criar $DEST."
 ) || fail "nao foi possivel iniciar o repositorio em $DEST."
 
 log "pronto: $DEST (repositorio git proprio, baseline commitada)."
-log "para rodar: python3 $DEST/battle_knights/MVP.py   |   python3 $DEST/battle_knights/run.py"
+log "para rodar (de dentro da pasta, o jogo le moves.txt do diretorio atual): cd $DEST/battle_knights && python3 MVP.py   |   python3 run.py"
